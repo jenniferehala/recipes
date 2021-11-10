@@ -39,7 +39,7 @@ class Recipe:
 
     @classmethod
     def delete_recipe(cls,data):
-        query="DELETE FROM users WHERE id = %(id)s"
+        query="DELETE FROM recipes WHERE id = %(id)s"
         return connectToMySQL('recipes_db').query_db(query,data)
     
     @classmethod
@@ -55,5 +55,5 @@ class Recipe:
     
     @classmethod
     def update(cls,data):
-        query ="UPDATE recipes SET name = %(name)s, description=%(description)s, instructions=%(instructions)s, date_made =%(date_made)s, under30 = %(under30)s, id: %(id)s" 
+        query ="UPDATE recipes SET name = %(name)s, description=%(description)s, instructions=%(instructions)s, date_made =%(date_made)s, under30 = %(under30)s WHERE id = %(id)s;" 
         return connectToMySQL("recipes_db").query_db(query,data)

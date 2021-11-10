@@ -7,6 +7,27 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Welcome {{user_id}}</h1>
+    <h1>Welcome {{user.first_name}}</h1>
+    <br><br>
+    <h2>{{recipe.name}}</h2>
+
+    <table border="1">
+        <tr>
+            <td>Description: {{recipe.description}}</td>
+        </tr>
+        <tr>
+            <td>Under 30 minutes: {{recipe.under30}}</td>
+        </tr>
+        <tr>
+            <td>Instructions: {{recipe.instructions}}</td>
+        </tr>
+        <tr>
+            <td>Date Made: {{recipe.date_made}}</td>
+        </tr>
+    </table>
+    <br>
+    <a href="/logout">Logout</a>
+    <a href="/dashboard">Dashboard</a>
+
 </body>
 </html>

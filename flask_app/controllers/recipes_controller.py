@@ -25,11 +25,12 @@ def logout():
 
 
 @app.route("/delete/<int:id>")
-def delete_recipe():    
+def delete_recipe(id):    
     data = {
         "id":id
     }
     Recipe.delete_recipe(data)
+    flash("deleted recipe")
     return redirect("/dashboard")
 
 
@@ -48,18 +49,17 @@ def save():
         return redirect("/")
 
     if Recipe.validate_recipe(request.form):
-         data = {
+        data = {
             "name": request.form["name"],
             "description": request.form["description"],
             "instructions": request.form["instructions"],
             "date_made": request.form["date_made"],
             "under30": request.form["under30"],
             "user_id": session["user_id"]
-         }
-         Recipe.save(data) 
-         return redirect("/dashboard")
+        }
+        Recipe.save(data) 
+        return redirect("/dashboard")
     else:
-    
         return redirect("/create")
 
 @app.route("/edit/<int:id>")
@@ -71,33 +71,39 @@ def edit(id):
     return render_template("editrecipe.html", recipe=recipe)
 
 
-@app.route("/editrecipe", methods = ["POST"])
-def edit_recipe():
+@app.route("/editrecipe/<int:id>", methods = ["POST"])
+def edit_recipe(id):
     if "user_id" not in session:
         flash("Must be logged in!")
         return redirect("/")
     print("we made it")
     
     if Recipe.validate_recipe(request.form):
-         data = {
+        data = {
             "name": request.form["name"],
             "description": request.form["description"],
             "instructions": request.form["instructions"],
             "date_made": request.form["date_made"],
             "under30": request.form["under30"],
-            "user_id": session["user_id"]
-         }
-         Recipe.update(data) 
-         return redirect("/dashboard")
+            "id":id
+        }
+
+        Recipe.update(data) 
+        return redirect("/dashboard")
     else:
     
         return redirect("/editrecipe")
 
 
 @app.route("/recipe/instructions/<int:id>")
-def showrecipe(id):
-        data = {
+def show(id):
+    data = {
         "id": id
     }
-    
+    user_data = {
+        "id":session['user_id']
+    }
+    recipe = Recipe.get_by_id(data)
+    user = User.get_by_id(user_data)
+    return render_template("instructions.html", recipe=recipe, user=user)
 

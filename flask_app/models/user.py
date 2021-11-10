@@ -54,6 +54,12 @@ class User:
             return False          #if the length of the dictionary < 0, means didn't return anything
         
         return cls(user_db[0])    #if found, return instance of dictionary
+
+    @classmethod
+    def get_by_id(cls,data):
+        query = "SELECT * FROM users WHERE id = %(id)s;"
+        results = connectToMySQL("recipes_db").query_db(query,data)
+        return cls(results[0])
     
     @classmethod
     def get_user_recipes(cls,data):

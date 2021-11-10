@@ -16,7 +16,7 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
-    <form action="/editrecipe" method="POST">
+    <form action="/editrecipe/{{recipe.id}}" method="POST">
         <label for="name">Name:</label>
         <input type="text" name="name" value="{{recipe.name}}"> <br><br>
 
@@ -34,5 +34,9 @@
         <input type="radio" value="No" name="under30" value="{{recipe.under30}}">No
         
         <input type="submit" name="Update">
+
+        <br><br>
+        <a href="/logout">Logout</a>
+        <a href="/dashboard">Dashboard</a>
 </body>
 </html>
