@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/create">Create</a>
+    <h2>Welcome {{session["first_name"]}}!</h2>
+    <br>
+    <p>These are the recipes</p>
+    <br>
+    <table width="600px" border='1'>
+        <thead>
+            <th>Name</th>
+            <th>Under 30 minutes?</th>
+            <th>Actions</th>
+        </thead>
+        <tbody>
+            {% for ur in user_recipes.recipes %}
+            <tr>
+                <td>{{ur.name}}</td>
+                <td>{{ur.under30}}</td>
+                <td>
+                    <a href="/recipe/instructions/{{ur.id}}">view instructions</a>
+                    <a href="/edit/{{ur.id}}">edit</a>
+                    <a href="/delete/{{ur.d}}">delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br><br>
+    <a href="/logout">Logout</a>
+</body>
+</html>
